@@ -10,7 +10,7 @@ if (accept) {
 
 else
 {
-  console.log("You're probably a soccer fan");
+  console.log("You're probably a soccer fan anyway");
 }
 
 var playerLevel = prompt("First things first. Are you playing pro or college ball?");
@@ -39,58 +39,72 @@ var playerLevel = prompt("First things first. Are you playing pro or college bal
   else {
     console.log("Thats not a league. You need to go watch some more Sports Center and come back later");
   }
+
+  // -------SCORING-------
+  var scoring = function (x) {
+
+    for (i=0;i<=6;i++) {
+      var shot = prompt("Alright you've got the ball, are you going to shoot a 3-ball or drive in the lane? (3-ball/drive)");
+      var shotSuccess = Math.floor((Math.random() * 100) + 1);
+      var reboundSuccess = Math.floor((Math.random() * 100) + 1);
+
+      switch (shot) {
+        case "3-ball":
+          if (shotSuccess < 20) {
+            score.push(3);
+            console.log("You hit that shot from another area code for three");
+          }
+
+          else if (reboundSuccess < 10) {
+            score.push(2);
+            console.log("You missed horribly, but one of your teamates was there for the putback for two")
+          }
+
+          else {
+            score.push(0);
+            console.log("That's just not your range tonight. Your shot rimmed out");
+          }
+          break;
+          case "drive":
+            if (shotSuccess < 35) {
+              score.push(2);
+              console.log("Nice cut through the lane for the quick bucket, snaggin two points on the way through");
+            }
+
+            else if (reboundSuccess < 10) {
+              score.push(2);
+              console.log("Your shot got absolutely swatted, but it was scooped up and put back for two")
+            }
+
+            else {
+              score.push(0);
+              console.log("You just got pounded in the paint and blocked");
+            }
+          }
+
+          var myScore = score.reduce(function(a, b) {
+            return a + b;
+          });
+
+          console.log("You have ", myScore, "right now");
+        }
+      }
+
   // -------TIPOFF-------
     var tipoff = Math.floor((Math.random() * 100) + 1);
 
     if (tipoff > 50) {
-      console.log("looks like you got the tip off");
+      console.log("looks like you got the tipoff and one extra posession");
+      scoring(7);
     }
 
     else {
       console.log("Your opponent has better hops than you and snagged the tipoff");
+      scoring(6);
     }
 
-  // -------SCORING-------
-  // var shot = prompt("Alright you've got the ball, are you going to shoot a 3-ball or drive in the lane? (3-ball/drive)");
-
-  // var shotSuccess = Math.floor((Math.random() * 100) + 1);
-
-  for (i=0;i<=6;i++) {
-  var shot = prompt("Alright you've got the ball, are you going to shoot a 3-ball or drive in the lane? (3-ball/drive)");
-  var shotSuccess = Math.floor((Math.random() * 100) + 1);
-
-  switch (shot) {
-    case "3-ball":
-      if (shotSuccess < 20) {
-        score.push(3);
-        console.log("You hit that shot from another area code for three points");
-      }
-
-      else {
-        score.push(0);
-        console.log("That's just not your range tonight. Your shot rimmed out");
-      }
-    break;
-    case "drive":
-      if (shotSuccess < 35) {
-        score.push(2);
-        console.log("Nice cut through the lane for the quick bucket, snaggin two points on the way through");
-      }
-
-      else {
-        score.push(0);
-        console.log("You just got pounded in the paint and blocked. Maybe try a 3-ball next time");
-      }
-    }
-
-    var myScore = score.reduce(function(a, b) {
-      return a + b;
-    });
-
-    console.log("Your score right now is ", myScore);
-  }
-
-  if (myScore > 21) {
+//-------GAME END-------
+  if (myScore > 10) {
     console.log("You won, nice work")
   }
 
